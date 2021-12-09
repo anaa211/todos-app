@@ -1,0 +1,47 @@
+<div class="my-3">
+  <h3>Add todo</h3>
+  <form (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="title" class="form-label">Todo title</label>
+      <input
+        type="text"
+        [(ngModel)]="title"
+        class="form-control"
+        id="title"
+        name="title"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="desc" class="form-label">Description</label>
+      <input
+        type="text"
+        [(ngModel)]="desc"
+        class="form-control"
+        id="desc"
+        name="desc"
+      />
+    </div>
+    <button
+      type="submit"
+      class="mb-4 btn btn-sm btn-primary"
+      (click)="triggerModal(modalData)"
+    >
+      Add todo
+    </button>
+    <ng-template #modalData let-modal>
+      <div class="modal-body">
+        <p>
+          <strong>{{ modalText }}</strong>
+        </p>
+        <button
+          type="button"
+          style="float: right"
+          class="btn btn-primary"
+          (click)="modal.close('Save click')"
+        >
+          Close
+        </button>
+      </div>
+    </ng-template>
+  </form>
+</div>

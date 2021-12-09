@@ -1,0 +1,46 @@
+<div class="container">
+  <h1 class="text-center">Todos List</h1>
+
+  <div class="md-form active-cyan-2 my-3">
+    <div class="form-group">
+      <input
+        class="form-control"
+        style="max-width: 300px"
+        type="text"
+        placeholder="Search with Title..."
+        [(ngModel)]="searchTitle"
+        (keyup)="onSearch()"
+      />
+    </div>
+  </div>
+
+  <app-add-todo (todoAdd)="addTodo($event)"></app-add-todo>
+  <h3>Your todos</h3>
+  <div *ngIf="this.todos.length === 0; else elseBlock">No Todos to display</div>
+  <ng-template #elseBlock>
+    <div
+      *ngFor="
+        let todo of todos | paginate: { itemsPerPage: 2, currentPage: page };
+        index as i
+      "
+    >
+      <app-todo-item
+        [todo]="todo"
+        [i]="i"
+        (todoDelete)="deleteTodo($event)"
+        (todoCheckBox)="toggleTodo($event)"
+      ></app-todo-item>
+    </div>
+    <div style="text-align: center">
+      <pagination-controls
+        (pageChange)="page = $event"
+        previousLabel="Prev"
+        nextLabel="Next"
+        [responsive]="true"
+        screenReaderPaginationLabel="Pagination"
+        screenReaderPageLabel="page"
+      >
+      </pagination-controls>
+    </div>
+  </ng-template>
+</div>
